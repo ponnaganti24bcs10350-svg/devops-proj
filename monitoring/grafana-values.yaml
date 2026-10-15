@@ -1,0 +1,39 @@
+# ==============================================================================
+# Grafana Helm Values & Datasource Provisioning for CloudPulse
+# ==============================================================================
+adminPassword: "admin"
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://session20-prometheus:9090
+        isDefault: true
+        jsonData:
+          timeInterval: 5s
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: 'cloudpulse-dashboards'
+        orgId: 1
+        folder: 'CloudPulse Observability'
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards
+
+dashboards:
+  default:
+    cloudpulse-metrics:
+      file: dashboards/cloudpulse-overview.json
