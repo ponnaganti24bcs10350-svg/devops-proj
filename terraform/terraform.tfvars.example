@@ -1,0 +1,19 @@
+# ==============================================================================
+# CloudPulse Terraform Variable Configuration Example
+# ==============================================================================
+# Copy this file to 'terraform.tfvars' to customize parameters for your deployment.
+# IMPORTANT: Never commit actual cloud credentials or sensitive secrets to Git.
+
+aws_region           = "us-east-1"
+environment          = "production"
+vpc_cidr             = "10.0.0.0/16"
+availability_zones   = ["us-east-1a", "us-east-1b"]
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs = ["10.0.10.0/24", "10.0.11.0/24"]
+
+cluster_name         = "cloudpulse-eks-cluster"
+cluster_version      = "1.30"
+node_instance_types  = ["t3.medium"]
+node_desired_capacity = 2
+node_min_capacity    = 1
+node_max_capacity    = 4
