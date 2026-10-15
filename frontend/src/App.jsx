@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
   Activity,
-  AlertTriangle,
-  CheckCircle2,
-  Clock,
-  Server,
-  ShieldAlert,
   Search,
   Plus,
   RefreshCw,
   Trash2,
   ExternalLink,
-  User,
-  X,
-  Radio,
-  FileText
+  X
 } from 'lucide-react';
 
 const API_BASE = ''; // relative path connects through Vite dev proxy & Nginx reverse proxy
@@ -160,24 +152,23 @@ export default function App() {
 
   return (
     <div>
-      {/* Sleek Top Navigation Bar */}
+      {/* Refined Navigation Bar */}
       <header>
         <div className="header-container">
           <div className="logo-group">
             <div className="logo-icon-wrapper">
-              <Activity size={20} strokeWidth={2.5} />
+              <Activity size={18} strokeWidth={2.4} />
             </div>
             <div className="logo-title">
               <h1>
                 CloudPulse <span className="ops-tag">SRE</span>
               </h1>
-              <p>Site Reliability & Incident Lifecycle Management</p>
+              <p>Platform Health & Incident Command</p>
             </div>
           </div>
 
           <div className="header-actions">
             <div className="cluster-pill">
-              <Radio size={13} color="#059669" />
               <span>eks-cluster-us-east-1</span>
             </div>
 
@@ -189,9 +180,8 @@ export default function App() {
               id="btn-metrics"
               title="Prometheus Raw Metrics"
             >
-              <Activity size={14} color="#ea580c" />
               <span>Metrics</span>
-              <ExternalLink size={12} color="#78716c" />
+              <ExternalLink size={12} color="var(--text-muted)" />
             </a>
 
             <a
@@ -202,9 +192,8 @@ export default function App() {
               id="btn-swagger"
               title="OpenAPI Documentation"
             >
-              <FileText size={14} color="#ea580c" />
               <span>API Docs</span>
-              <ExternalLink size={12} color="#78716c" />
+              <ExternalLink size={12} color="var(--text-muted)" />
             </a>
 
             <button
@@ -212,7 +201,7 @@ export default function App() {
               id="btn-report-incident"
               onClick={() => setIsModalOpen(true)}
             >
-              <Plus size={15} strokeWidth={2.5} />
+              <Plus size={15} strokeWidth={2.4} />
               <span>Report Incident</span>
             </button>
           </div>
@@ -220,100 +209,71 @@ export default function App() {
       </header>
 
       <main>
-        {/* Real-time Infrastructure Status Bar */}
-        <div
-          className={`system-banner ${
-            isSystemHealthy ? 'banner-operational' : 'banner-degraded'
-          }`}
-        >
+        {/* Subtle, Natural System Status Overview (No neon green dots) */}
+        <div className="system-banner">
           <div className="banner-left">
-            <span
-              className="status-dot live-pulse"
-              style={{
-                backgroundColor: isSystemHealthy ? '#059669' : '#d97706',
-                boxShadow: isSystemHealthy
-                  ? '0 0 8px rgba(5, 150, 105, 0.4)'
-                  : '0 0 8px rgba(217, 119, 6, 0.4)'
-              }}
-            ></span>
-            <span>
+            <span className={`status-badge ${isSystemHealthy ? 'badge-operational' : 'badge-degraded'}`}>
+              {isSystemHealthy ? 'All Systems Operational' : 'Degraded Performance'}
+            </span>
+            <span className="banner-summary-text">
               {isSystemHealthy
-                ? 'All Cloud Infrastructure Systems Operational'
-                : 'Degraded Performance Detected — SRE Escalation Active'}
+                ? 'All cloud microservices passing health probes with normal latency.'
+                : 'Elevated error rates detected. SRE on-call escalation in progress.'}
             </span>
           </div>
 
           <div className="banner-chips">
             <span className="banner-chip">API: {health.status}</span>
             <span className="banner-chip">DB: {health.database}</span>
-            <span className="banner-chip">VPC: multi-az</span>
-            <span className="banner-chip">Telemetry: active</span>
+            <span className="banner-chip">Multi-AZ</span>
           </div>
         </div>
 
-        {/* Executive KPI Summary Cards */}
+        {/* Executive Metrics Overview (Unified Human Layout) */}
         <div className="kpi-grid">
           <div className="kpi-card">
-            <div className="kpi-card-header">
-              <span className="kpi-label">Total Incidents</span>
-              <div className="kpi-icon-container" style={{ background: '#fff7ed', borderColor: '#fed7aa' }}>
-                <FileText size={16} color="#ea580c" />
-              </div>
-            </div>
+            <span className="kpi-label">Total incidents</span>
             <div className="kpi-value" id="kpi-total-val">
               {stats ? stats.total_incidents : incidents.length}
             </div>
-            <div className="kpi-subtext">Cumulative recorded production events</div>
+            <div className="kpi-subtext">Recorded lifecycle history</div>
           </div>
 
           <div className="kpi-card">
-            <div className="kpi-card-header">
-              <span className="kpi-label" style={{ color: '#dc2626' }}>Active Outages</span>
-              <div className="kpi-icon-container" style={{ background: '#fef2f2', borderColor: '#fecaca' }}>
-                <ShieldAlert size={16} color="#dc2626" />
-              </div>
-            </div>
-            <div className="kpi-value" id="kpi-critical-val" style={{ color: '#dc2626' }}>
+            <span className="kpi-label">Active outages</span>
+            <div
+              className={`kpi-value ${stats && (stats.critical_count + stats.high_count) > 0 ? 'val-alert' : ''}`}
+              id="kpi-critical-val"
+            >
               {stats ? stats.critical_count + stats.high_count : 0}
             </div>
-            <div className="kpi-subtext">Critical & High severity issues</div>
+            <div className="kpi-subtext">High & critical severity issues</div>
           </div>
 
           <div className="kpi-card">
-            <div className="kpi-card-header">
-              <span className="kpi-label" style={{ color: '#d97706' }}>Under Triage</span>
-              <div className="kpi-icon-container" style={{ background: '#fffbeb', borderColor: '#fde68a' }}>
-                <Search size={16} color="#d97706" />
-              </div>
-            </div>
-            <div className="kpi-value" id="kpi-active-val" style={{ color: '#d97706' }}>
+            <span className="kpi-label">Under triage</span>
+            <div className="kpi-value val-triage" id="kpi-active-val">
               {stats ? stats.active_incidents : 0}
             </div>
-            <div className="kpi-subtext">Under active root cause investigation</div>
+            <div className="kpi-subtext">Active root cause investigation</div>
           </div>
 
           <div className="kpi-card">
-            <div className="kpi-card-header">
-              <span className="kpi-label" style={{ color: '#059669' }}>Resolved</span>
-              <div className="kpi-icon-container" style={{ background: '#ecfdf5', borderColor: '#a7f3d0' }}>
-                <CheckCircle2 size={16} color="#059669" />
-              </div>
-            </div>
-            <div className="kpi-value" id="kpi-resolved-val" style={{ color: '#059669' }}>
+            <span className="kpi-label">Resolved</span>
+            <div className="kpi-value val-resolved" id="kpi-resolved-val">
               {stats ? stats.resolved_incidents : 0}
             </div>
-            <div className="kpi-subtext">Mitigated and post-mortem completed</div>
+            <div className="kpi-subtext">Mitigated and closed</div>
           </div>
         </div>
 
-        {/* Monitored Microservices Catalog */}
+        {/* Monitored Microservices (Natural Typography, Zero Green Dot Clutter) */}
         <section>
           <div className="section-header">
             <h2 className="section-title">
-              <Server size={17} color="#ea580c" />
               <span>Monitored Core Infrastructure</span>
             </h2>
-            <span className="section-count">{services.length} services online</span>
+            <span className="section-count">{services.length} services</span>
           </div>
 
           <div className="services-grid">
@@ -321,14 +281,11 @@ export default function App() {
               <div key={srv.id || srv.name} className="service-card">
                 <div className="service-card-top">
                   <span className="service-name">{srv.name}</span>
-                  <span className="badge badge-operational">
-                    <span className="status-dot" style={{ backgroundColor: '#059669' }}></span>
-                    {srv.status}
-                  </span>
+                  <span className="service-status-pill">{srv.status.toLowerCase()}</span>
                 </div>
                 <div className="service-metrics-row">
-                  <span>Uptime: {srv.uptime_pct}%</span>
-                  <span>Latency: {srv.latency_ms}ms</span>
+                  <span>{srv.uptime_pct}% uptime</span>
+                  <span>{srv.latency_ms}ms</span>
                 </div>
               </div>
             ))}
@@ -339,7 +296,6 @@ export default function App() {
         <section>
           <div className="section-header">
             <h2 className="section-title">
-              <AlertTriangle size={17} color="#ea580c" />
               <span>Incident Response & Triage Feed</span>
             </h2>
             <span className="section-count">{filteredIncidents.length} displayed</span>
@@ -348,12 +304,12 @@ export default function App() {
           {/* Action Toolbar */}
           <div className="toolbar">
             <div className="toolbar-search-wrap">
-              <Search size={15} className="search-icon" />
+              <Search size={14} className="search-icon" />
               <input
                 type="text"
                 className="input-search"
                 id="search-input"
-                placeholder="Search incident title, service name, or tag..."
+                placeholder="Search by title, service, or assignee..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -402,10 +358,9 @@ export default function App() {
           <div className="incidents-feed">
             {filteredIncidents.length === 0 ? (
               <div className="empty-feed">
-                <CheckCircle2 size={32} color="#059669" />
                 <p>No active incidents matching current filters.</p>
-                <span style={{ fontSize: '0.75rem', color: '#78716c' }}>
-                  All systems operating within acceptable SLO parameters.
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  All systems operating within acceptable SLO thresholds.
                 </span>
               </div>
             ) : (
@@ -418,10 +373,10 @@ export default function App() {
                   <div className="incident-main">
                     <div className="incident-headline">
                       <span className={`badge badge-${inc.severity.toLowerCase()}`}>
-                        {inc.severity}
+                        {inc.severity.toLowerCase()}
                       </span>
                       <span className={`badge badge-${inc.status.toLowerCase()}`}>
-                        {inc.status}
+                        {inc.status.toLowerCase()}
                       </span>
                       <span className="incident-title">{inc.title}</span>
                     </div>
@@ -431,32 +386,22 @@ export default function App() {
                     )}
 
                     <div className="incident-meta">
-                      <div className="meta-item">
-                        <Server size={12} />
-                        <span className="meta-service-tag">{inc.service_name}</span>
-                      </div>
-
-                      <div className="meta-item">
-                        <User size={12} />
-                        <span>{inc.assigned_to}</span>
-                      </div>
-
-                      <div className="meta-item">
-                        <Clock size={12} />
-                        <span>
-                          {new Date(inc.created_at).toLocaleString([], {
-                            month: 'short',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
-                        </span>
-                      </div>
-
+                      <span className="meta-service-tag">{inc.service_name}</span>
+                      <span>&bull;</span>
+                      <span>Assigned to {inc.assigned_to}</span>
+                      <span>&bull;</span>
+                      <span>
+                        {new Date(inc.created_at).toLocaleString([], {
+                          month: 'short',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </span>
                       {inc.resolved_at && (
-                        <div className="meta-item" style={{ color: '#059669' }}>
-                          <CheckCircle2 size={12} />
-                          <span>
+                        <>
+                          <span>&bull;</span>
+                          <span style={{ color: 'var(--status-ok-text)' }}>
                             Resolved in{' '}
                             {Math.max(
                               1,
@@ -468,7 +413,7 @@ export default function App() {
                             )}{' '}
                             min
                           </span>
-                        </div>
+                        </>
                       )}
                     </div>
                   </div>
@@ -481,8 +426,7 @@ export default function App() {
                         id={`btn-resolve-${inc.id}`}
                         onClick={() => handleStatusUpdate(inc.id, 'RESOLVED')}
                       >
-                        <CheckCircle2 size={13} />
-                        <span>Resolve</span>
+                        Resolve
                       </button>
                     ) : (
                       <button
@@ -514,15 +458,12 @@ export default function App() {
         <div className="modal-backdrop" onClick={() => setIsModalOpen(false)}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h3>
-                <AlertTriangle size={18} color="#ea580c" />
-                <span>Declare Production Incident</span>
-              </h3>
+              <h3>Declare Production Incident</h3>
               <button
                 className="modal-close-btn"
                 onClick={() => setIsModalOpen(false)}
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
@@ -646,7 +587,7 @@ export default function App() {
       )}
 
       <footer>
-        CloudPulse Platform &copy; 2026 | Enterprise SRE Operations, Incident Automation & Observability
+        CloudPulse Platform &copy; 2026 | Site Reliability Operations & Incident Management
       </footer>
     </div>
   );
