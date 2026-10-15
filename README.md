@@ -54,14 +54,11 @@ graph TD
 The easiest way to run the full stack locally is with Docker Compose:
 
 ```bash
-# Clone the repository
 git clone https://github.com/ponnaganti24bcs10350-svg/devops-proj.git
 cd devops-proj
 
-# Start PostgreSQL, backend, and frontend
 docker compose up -d --build
 
-# Verify container status
 docker compose ps
 ```
 
@@ -83,12 +80,10 @@ docker compose down
 Automated tests run against an isolated in-memory SQLite database so your local database is untouched:
 
 ```bash
-# Set up virtual environment and install dependencies
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r backend/requirements.txt
 
-# Run pytest
 PYTHONPATH=. pytest backend/tests -v
 ```
 
@@ -115,13 +110,10 @@ PYTHONPATH=. pytest backend/tests -v
 Deploy the stack to a local or remote Kubernetes cluster (e.g. Minikube or Kind):
 
 ```bash
-# 1. Create namespace
 kubectl apply -f k8s/namespace.yaml
 
-# 2. Deploy with Helm
 helm upgrade --install cloudpulse ./helm --namespace cloudpulse
 
-# 3. Check pods
 kubectl get pods -n cloudpulse
 ```
 
@@ -134,13 +126,10 @@ Terraform configurations for provisioning an AWS VPC and EKS cluster reside in `
 ```bash
 cd terraform
 
-# Initialize providers
 terraform init
 
-# Validate syntax
 terraform validate
 
-# Review planned infrastructure
 terraform plan -var-file=terraform.tfvars.example
 ```
 

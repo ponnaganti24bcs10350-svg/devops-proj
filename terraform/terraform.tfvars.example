@@ -1,9 +1,3 @@
-# ==============================================================================
-# CloudPulse Terraform Variable Configuration Example
-# ==============================================================================
-# Copy this file to 'terraform.tfvars' to customize parameters for your deployment.
-# IMPORTANT: Never commit actual cloud credentials or sensitive secrets to Git.
-
 aws_region           = "us-east-1"
 environment          = "production"
 vpc_cidr             = "10.0.0.0/16"

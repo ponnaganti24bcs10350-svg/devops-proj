@@ -1,1 +1,0 @@
-# CloudPulse Test Suite

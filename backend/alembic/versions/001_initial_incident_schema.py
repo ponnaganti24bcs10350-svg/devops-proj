@@ -9,7 +9,6 @@ from typing import Sequence, Union
 from alembic import op
 import sqlalchemy as sa
 
-# revision identifiers, used by Alembic.
 revision: str = '001_initial_schema'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
@@ -17,7 +16,6 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    # 1. Create incidents table
     op.create_table(
         'incidents',
         sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
@@ -38,7 +36,6 @@ def upgrade() -> None:
     op.create_index(op.f('ix_incidents_severity'), 'incidents', ['severity'], unique=False)
     op.create_index(op.f('ix_incidents_status'), 'incidents', ['status'], unique=False)
 
-    # 2. Create services catalog table
     op.create_table(
         'services',
         sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),

@@ -13,7 +13,7 @@ spec:
   rules:
     - http:
         paths:
-          # Backend API Routing (Rubric Requirement)
+          
           - path: /api
             pathType: Prefix
             backend:
@@ -35,7 +35,7 @@ spec:
                 name: cloudpulse-backend
                 port:
                   number: {{ .Values.backend.service.port }}
-          # Frontend Root Routing (Rubric Requirement)
+          
           - path: /
             pathType: Prefix
             backend:
