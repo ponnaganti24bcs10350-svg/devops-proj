@@ -125,16 +125,20 @@ export default function App() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm(`Confirm archiving incident #${id}?`)) return;
     try {
+      // Optimistically remove from state immediately
+      setIncidents((prev) => prev.filter((inc) => inc.id !== id));
       const res = await fetch(`${API_BASE}/api/v1/incidents/${id}`, {
         method: 'DELETE'
       });
       if (res.ok) {
         await fetchData();
+      } else {
+        await fetchData();
       }
     } catch (err) {
       console.error('Delete operation failed:', err);
+      await fetchData();
     }
   };
 
