@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: postgres_password_dev
       POSTGRES_DB: cloudpulse_db
     ports:
-      - "5435:5432" # Use 5435 to avoid conflicts with any running host Postgres
+      - "5439:5432"
     volumes:
       - cloudpulse_pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -21,7 +21,10 @@ services:
       retries: 5
       start_period: 5s
     networks:
-      - cloudpulse-network
+      cloudpulse-network:
+        aliases:
+          - postgres
+          - cloudpulse-postgres
 
   # ============================================================================
   # 2. FastAPI Backend Service
@@ -54,7 +57,10 @@ services:
       retries: 5
       start_period: 10s
     networks:
-      - cloudpulse-network
+      cloudpulse-network:
+        aliases:
+          - backend
+          - cloudpulse-backend
 
   # ============================================================================
   # 3. React + Nginx Frontend Service
@@ -77,7 +83,10 @@ services:
       retries: 5
       start_period: 5s
     networks:
-      - cloudpulse-network
+      cloudpulse-network:
+        aliases:
+          - frontend
+          - cloudpulse-frontend
 
 volumes:
   cloudpulse_pgdata:
