@@ -1,0 +1,16 @@
+apiVersion: v2
+name: cloudpulse
+description: CloudPulse - Production SRE Operations, Incident Response & Observability Platform
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+maintainers:
+  - name: Srividya Ponnaganti
+    email: srividya@cloudpulse.dev
+keywords:
+  - devops
+  - sre
+  - kubernetes
+  - fastapi
+  - react
+  - observability
