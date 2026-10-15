@@ -1,0 +1,89 @@
+services:
+  # ============================================================================
+  # 1. PostgreSQL Database Service
+  # ============================================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: cloudpulse-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password_dev
+      POSTGRES_DB: cloudpulse_db
+    ports:
+      - "5435:5432" # Use 5435 to avoid conflicts with any running host Postgres
+    volumes:
+      - cloudpulse_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d cloudpulse_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - cloudpulse-network
+
+  # ============================================================================
+  # 2. FastAPI Backend Service
+  # ============================================================================
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: cloudpulse-backend
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: production
+      LOG_LEVEL: info
+      PORT: 8000
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password_dev
+      POSTGRES_DB: cloudpulse_db
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      DATABASE_URL: postgresql://postgres:postgres_password_dev@postgres:5432/cloudpulse_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - cloudpulse-network
+
+  # ============================================================================
+  # 3. React + Nginx Frontend Service
+  # ============================================================================
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: cloudpulse-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:80/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - cloudpulse-network
+
+volumes:
+  cloudpulse_pgdata:
+    name: cloudpulse_pgdata
+
+networks:
+  cloudpulse-network:
+    name: cloudpulse-network
+    driver: bridge
