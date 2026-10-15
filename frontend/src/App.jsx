@@ -177,7 +177,7 @@ export default function App() {
 
           <div className="header-actions">
             <div className="cluster-pill">
-              <Radio size={13} color="#10b981" />
+              <Radio size={13} color="#059669" />
               <span>eks-cluster-us-east-1</span>
             </div>
 
@@ -189,9 +189,9 @@ export default function App() {
               id="btn-metrics"
               title="Prometheus Raw Metrics"
             >
-              <Activity size={14} />
+              <Activity size={14} color="#ea580c" />
               <span>Metrics</span>
-              <ExternalLink size={12} color="#94a3b8" />
+              <ExternalLink size={12} color="#78716c" />
             </a>
 
             <a
@@ -202,9 +202,9 @@ export default function App() {
               id="btn-swagger"
               title="OpenAPI Documentation"
             >
-              <FileText size={14} />
+              <FileText size={14} color="#ea580c" />
               <span>API Docs</span>
-              <ExternalLink size={12} color="#94a3b8" />
+              <ExternalLink size={12} color="#78716c" />
             </a>
 
             <button
@@ -230,10 +230,10 @@ export default function App() {
             <span
               className="status-dot live-pulse"
               style={{
-                backgroundColor: isSystemHealthy ? '#10b981' : '#f59e0b',
+                backgroundColor: isSystemHealthy ? '#059669' : '#d97706',
                 boxShadow: isSystemHealthy
-                  ? '0 0 8px #10b981'
-                  : '0 0 8px #f59e0b'
+                  ? '0 0 8px rgba(5, 150, 105, 0.4)'
+                  : '0 0 8px rgba(217, 119, 6, 0.4)'
               }}
             ></span>
             <span>
@@ -256,8 +256,8 @@ export default function App() {
           <div className="kpi-card">
             <div className="kpi-card-header">
               <span className="kpi-label">Total Incidents</span>
-              <div className="kpi-icon-container">
-                <FileText size={16} color="#94a3b8" />
+              <div className="kpi-icon-container" style={{ background: '#fff7ed', borderColor: '#fed7aa' }}>
+                <FileText size={16} color="#ea580c" />
               </div>
             </div>
             <div className="kpi-value" id="kpi-total-val">
@@ -268,12 +268,12 @@ export default function App() {
 
           <div className="kpi-card">
             <div className="kpi-card-header">
-              <span className="kpi-label" style={{ color: '#f87171' }}>Active Outages</span>
-              <div className="kpi-icon-container" style={{ background: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.2)' }}>
-                <ShieldAlert size={16} color="#f87171" />
+              <span className="kpi-label" style={{ color: '#dc2626' }}>Active Outages</span>
+              <div className="kpi-icon-container" style={{ background: '#fef2f2', borderColor: '#fecaca' }}>
+                <ShieldAlert size={16} color="#dc2626" />
               </div>
             </div>
-            <div className="kpi-value" id="kpi-critical-val" style={{ color: '#f87171' }}>
+            <div className="kpi-value" id="kpi-critical-val" style={{ color: '#dc2626' }}>
               {stats ? stats.critical_count + stats.high_count : 0}
             </div>
             <div className="kpi-subtext">Critical & High severity issues</div>
@@ -281,12 +281,12 @@ export default function App() {
 
           <div className="kpi-card">
             <div className="kpi-card-header">
-              <span className="kpi-label" style={{ color: '#fbbf24' }}>Under Triage</span>
-              <div className="kpi-icon-container" style={{ background: 'rgba(245, 158, 11, 0.1)', borderColor: 'rgba(245, 158, 11, 0.2)' }}>
-                <Search size={16} color="#fbbf24" />
+              <span className="kpi-label" style={{ color: '#d97706' }}>Under Triage</span>
+              <div className="kpi-icon-container" style={{ background: '#fffbeb', borderColor: '#fde68a' }}>
+                <Search size={16} color="#d97706" />
               </div>
             </div>
-            <div className="kpi-value" id="kpi-active-val" style={{ color: '#fbbf24' }}>
+            <div className="kpi-value" id="kpi-active-val" style={{ color: '#d97706' }}>
               {stats ? stats.active_incidents : 0}
             </div>
             <div className="kpi-subtext">Under active root cause investigation</div>
@@ -294,12 +294,12 @@ export default function App() {
 
           <div className="kpi-card">
             <div className="kpi-card-header">
-              <span className="kpi-label" style={{ color: '#34d399' }}>Resolved</span>
-              <div className="kpi-icon-container" style={{ background: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.2)' }}>
-                <CheckCircle2 size={16} color="#34d399" />
+              <span className="kpi-label" style={{ color: '#059669' }}>Resolved</span>
+              <div className="kpi-icon-container" style={{ background: '#ecfdf5', borderColor: '#a7f3d0' }}>
+                <CheckCircle2 size={16} color="#059669" />
               </div>
             </div>
-            <div className="kpi-value" id="kpi-resolved-val" style={{ color: '#34d399' }}>
+            <div className="kpi-value" id="kpi-resolved-val" style={{ color: '#059669' }}>
               {stats ? stats.resolved_incidents : 0}
             </div>
             <div className="kpi-subtext">Mitigated and post-mortem completed</div>
@@ -310,7 +310,7 @@ export default function App() {
         <section>
           <div className="section-header">
             <h2 className="section-title">
-              <Server size={17} color="#3b82f6" />
+              <Server size={17} color="#ea580c" />
               <span>Monitored Core Infrastructure</span>
             </h2>
             <span className="section-count">{services.length} services online</span>
@@ -322,7 +322,7 @@ export default function App() {
                 <div className="service-card-top">
                   <span className="service-name">{srv.name}</span>
                   <span className="badge badge-operational">
-                    <span className="status-dot" style={{ backgroundColor: '#10b981' }}></span>
+                    <span className="status-dot" style={{ backgroundColor: '#059669' }}></span>
                     {srv.status}
                   </span>
                 </div>
@@ -339,7 +339,7 @@ export default function App() {
         <section>
           <div className="section-header">
             <h2 className="section-title">
-              <AlertTriangle size={17} color="#f59e0b" />
+              <AlertTriangle size={17} color="#ea580c" />
               <span>Incident Response & Triage Feed</span>
             </h2>
             <span className="section-count">{filteredIncidents.length} displayed</span>
@@ -402,9 +402,9 @@ export default function App() {
           <div className="incidents-feed">
             {filteredIncidents.length === 0 ? (
               <div className="empty-feed">
-                <CheckCircle2 size={32} color="#10b981" />
+                <CheckCircle2 size={32} color="#059669" />
                 <p>No active incidents matching current filters.</p>
-                <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
+                <span style={{ fontSize: '0.75rem', color: '#78716c' }}>
                   All systems operating within acceptable SLO parameters.
                 </span>
               </div>
@@ -454,7 +454,7 @@ export default function App() {
                       </div>
 
                       {inc.resolved_at && (
-                        <div className="meta-item" style={{ color: '#34d399' }}>
+                        <div className="meta-item" style={{ color: '#059669' }}>
                           <CheckCircle2 size={12} />
                           <span>
                             Resolved in{' '}
@@ -515,7 +515,7 @@ export default function App() {
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <h3>
-                <AlertTriangle size={18} color="#f59e0b" />
+                <AlertTriangle size={18} color="#ea580c" />
                 <span>Declare Production Incident</span>
               </h3>
               <button
