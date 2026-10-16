@@ -1,12 +1,4 @@
 # Session 21 — DevOps Final Capstone Project: Submission & Evaluation Dossier
-
-**Student Name:** Srividya Ponnaganti  
-**Enrollment ID:** 24BCS10350  
-**Project Name:** CloudPulse — SRE Reliability & Cloud Operations Platform  
-**Repository Branch:** `main`  
-**Date:** October 15, 2026  
-**Total Target Score:** 100 / 100 Points  
-
 ---
 
 ## 📑 Rubric Verification Matrix & Evidence
