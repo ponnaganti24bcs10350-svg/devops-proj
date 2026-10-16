@@ -1,31 +1,24 @@
-/* ==============================================================================
-   CLOUDPULSE — High-End SRE Platform
-   Aesthetic: Bespoke Editorial Cream & Terracotta
-   Authentic human-crafted design: Natural typography, zero AI green-dot clutter,
-   refined warm linen surfaces, rich terracotta accents.
-   ============================================================================== */
-
 :root {
-  /* Warm Linen & Biscuit Surfaces */
+  
   --canvas-bg: #fbf8f4;
   --surface-card: #ffffff;
   --surface-card-hover: #fefcf9;
   --surface-subtle: #f5efe6;
   --surface-tint: #faf5ee;
 
-  /* Natural Sandstone Borders */
+  
   --border-subtle: #ebe3d7;
   --border-strong: #ded3c4;
   --border-hover: #cbbead;
   --border-focus: #c84b16;
 
-  /* Typography - Deep Warm Espresso & Natural Slate */
+  
   --text-primary: #1e1b18;
   --text-secondary: #48433d;
   --text-muted: #787067;
   --text-dim: #9c9489;
 
-  /* Terracotta & Burnt Orange System */
+  
   --brand-primary: #c84b16;
   --brand-hover: #b03e0e;
   --brand-active: #943209;
@@ -33,7 +26,7 @@
   --brand-border: #f6d8c6;
   --brand-ring: rgba(200, 75, 22, 0.16);
 
-  /* Status Colors - Quiet, Natural, Non-neon */
+  
   --status-ok-bg: #f0f7f2;
   --status-ok-text: #235d3a;
   --status-ok-border: #d4ebd9;
@@ -50,24 +43,23 @@
   --status-info-text: #1d558a;
   --status-info-border: #d5e5f5;
 
-  /* Typography Scale */
+  
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
 
-  /* Corner Radii */
+  
   --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 9px;
   --radius-lg: 12px;
   --radius-pill: 9999px;
 
-  /* Organic Warm Diffused Shadows */
+  
   --shadow-sm: 0 1px 2px rgba(35, 30, 25, 0.04);
   --shadow-md: 0 4px 12px -2px rgba(35, 30, 25, 0.06), 0 1px 3px rgba(35, 30, 25, 0.03);
   --shadow-lg: 0 16px 32px -4px rgba(35, 30, 25, 0.09), 0 4px 12px -2px rgba(35, 30, 25, 0.04);
 }
 
-/* Base Reset & Typography */
 * {
   margin: 0;
   padding: 0;
@@ -84,9 +76,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ==============================================================================
-   Header Navigation
-   ============================================================================== */
 header {
   height: 60px;
   background-color: rgba(251, 248, 244, 0.94);
@@ -175,9 +164,6 @@ header {
   color: var(--text-secondary);
 }
 
-/* ==============================================================================
-   Main Layout Container
-   ============================================================================== */
 main {
   max-width: 1400px;
   margin: 1.5rem auto 3rem;
@@ -187,9 +173,6 @@ main {
   gap: 1.5rem;
 }
 
-/* ==============================================================================
-   System Status Overview (Clean, Quiet, No AI Green Dots)
-   ============================================================================== */
 .system-banner {
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
@@ -253,9 +236,6 @@ main {
   font-size: 0.72rem;
 }
 
-/* ==============================================================================
-   Executive Metrics Strip (Clean Editorial Style)
-   ============================================================================== */
 .kpi-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -336,9 +316,6 @@ main {
   color: var(--text-dim);
 }
 
-/* ==============================================================================
-   Section Structure
-   ============================================================================== */
 .section-header {
   display: flex;
   align-items: center;
@@ -367,9 +344,6 @@ main {
   font-weight: 500;
 }
 
-/* ==============================================================================
-   Core Infrastructure Services (Clean Architecture, No AI Green Dots)
-   ============================================================================== */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -435,9 +409,6 @@ main {
   padding-top: 0.5rem;
 }
 
-/* ==============================================================================
-   Action & Filter Toolbar
-   ============================================================================== */
 .toolbar {
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
@@ -511,9 +482,6 @@ main {
   border-color: var(--brand-primary);
 }
 
-/* ==============================================================================
-   Button System
-   ============================================================================== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -600,9 +568,6 @@ main {
   border-color: var(--brand-border);
 }
 
-/* ==============================================================================
-   Incident Feed (Linear/GitHub Clean Incident Architecture)
-   ============================================================================== */
 .incidents-feed {
   display: flex;
   flex-direction: column;
@@ -690,9 +655,6 @@ main {
   flex-shrink: 0;
 }
 
-/* ==============================================================================
-   Natural Semantic Badges
-   ============================================================================== */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -705,7 +667,6 @@ main {
   border: 1px solid transparent;
 }
 
-/* Severity Badges */
 .badge-critical {
   background: var(--status-alert-bg);
   border-color: var(--status-alert-border);
@@ -730,7 +691,6 @@ main {
   color: var(--status-info-text);
 }
 
-/* Status Badges */
 .badge-investigating {
   background: var(--brand-subtle);
   border-color: var(--brand-border);
@@ -761,9 +721,6 @@ main {
   color: var(--status-ok-text);
 }
 
-/* ==============================================================================
-   Modal Dialog
-   ============================================================================== */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -871,9 +828,6 @@ main {
   padding-top: 1rem;
 }
 
-/* ==============================================================================
-   Empty State
-   ============================================================================== */
 .empty-feed {
   background: #ffffff;
   border: 1px dashed var(--border-strong);
@@ -893,9 +847,6 @@ main {
   color: var(--text-secondary);
 }
 
-/* ==============================================================================
-   Footer
-   ============================================================================== */
 footer {
   margin-top: 3rem;
   border-top: 1px solid var(--border-subtle);

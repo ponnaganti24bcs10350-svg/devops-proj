@@ -10,7 +10,6 @@ from backend.app.routes.incidents import router as incidents_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Ensure tables exist on startup (fallback alongside Alembic)
     Base.metadata.create_all(bind=engine)
     yield
 
@@ -21,7 +20,6 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Enable CORS for frontend UI communication
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -30,7 +28,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Setup Prometheus Observability Instrumentation (/metrics)
 instrumentator = Instrumentator(
     should_group_status_codes=False,
     should_ignore_untemplated=True,
@@ -41,7 +38,6 @@ instrumentator = Instrumentator(
 )
 instrumentator.instrument(app).expose(app, endpoint="/metrics", include_in_schema=True)
 
-# Register API Routers
 app.include_router(health_router)
 app.include_router(incidents_router)
 

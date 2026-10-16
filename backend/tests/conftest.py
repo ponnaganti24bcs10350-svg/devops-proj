@@ -1,6 +1,5 @@
 import os
 
-# Set testing environment variables before importing app modules
 os.environ["ENVIRONMENT"] = "testing"
 os.environ["DATABASE_URL"] = "sqlite:///:memory:"
 
@@ -13,7 +12,6 @@ from sqlalchemy.pool import StaticPool
 from backend.app.database import Base, get_db
 from backend.app.main import app
 
-# Dedicated in-memory SQLite test database (completely isolated from production DB)
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 
 engine_test = create_engine(
@@ -31,7 +29,6 @@ def setup_test_db():
 
 @pytest.fixture(scope="function")
 def db_session():
-    """Provides an isolated transactional database session per test case."""
     connection = engine_test.connect()
     transaction = connection.begin()
     session = TestingSessionLocal(bind=connection)
@@ -44,7 +41,6 @@ def db_session():
 
 @pytest.fixture(scope="function")
 def client(db_session):
-    """Provides a TestClient with overridden get_db dependency."""
     def override_get_db():
         try:
             yield db_session

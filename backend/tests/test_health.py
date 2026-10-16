@@ -1,10 +1,6 @@
 from fastapi.testclient import TestClient
 
 def test_health_check_endpoint(client: TestClient):
-    """
-    Test that /health returns 200 and confirms database connectivity.
-    Satisfies M1 and M2 grading rubric.
-    """
     response = client.get("/health")
     assert response.status_code == 200
     data = response.json()
@@ -14,9 +10,6 @@ def test_health_check_endpoint(client: TestClient):
     assert "timestamp" in data
 
 def test_root_endpoint(client: TestClient):
-    """
-    Test root gateway navigation endpoint.
-    """
     response = client.get("/")
     assert response.status_code == 200
     data = response.json()
@@ -24,10 +17,6 @@ def test_root_endpoint(client: TestClient):
     assert "/metrics" in data["metrics"]
 
 def test_prometheus_metrics_endpoint(client: TestClient):
-    """
-    Test that /metrics exposes Prometheus formatted metrics.
-    Satisfies M9 grading rubric.
-    """
     response = client.get("/metrics")
     assert response.status_code == 200
     assert "text/plain" in response.headers.get("content-type", "")

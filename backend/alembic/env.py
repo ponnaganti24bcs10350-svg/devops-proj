@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 
 from backend.app.database import Base
 from backend.app.config import settings
-import backend.app.models  # ensure models are loaded
+import backend.app.models
 
 config = context.config
 

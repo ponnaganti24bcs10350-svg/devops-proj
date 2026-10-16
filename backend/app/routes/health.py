@@ -9,9 +9,6 @@ router = APIRouter(tags=["Health & Diagnostics"])
 
 @router.get("/health", status_code=status.HTTP_200_OK)
 def health_check(db: Session = Depends(get_db)):
-    """
-    Health check endpoint returning application status and database connectivity.
-    """
     db_status = "connected"
     try:
         db.execute(text("SELECT 1"))

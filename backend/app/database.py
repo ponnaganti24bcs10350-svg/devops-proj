@@ -5,7 +5,6 @@ from backend.app.config import settings
 
 database_url = settings.DATABASE_URL
 
-# Handle sqlite check_same_thread if using sqlite in tests or development
 connect_args = {}
 if database_url.startswith("sqlite"):
     connect_args = {"check_same_thread": False}

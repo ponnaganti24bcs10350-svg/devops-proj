@@ -2,7 +2,6 @@ from datetime import datetime
 from typing import Optional, List
 from pydantic import BaseModel, Field
 
-# Incident Schemas
 class IncidentBase(BaseModel):
     title: str = Field(..., min_length=3, max_length=255, description="Incident title")
     description: Optional[str] = Field(None, description="Detailed description of the incident")
@@ -31,7 +30,6 @@ class IncidentResponse(IncidentBase):
     class Config:
         from_attributes = True
 
-# Service Schemas
 class ServiceResponse(BaseModel):
     id: int
     name: str
@@ -44,7 +42,6 @@ class ServiceResponse(BaseModel):
     class Config:
         from_attributes = True
 
-# Health & Stats Schemas
 class HealthCheckResponse(BaseModel):
     status: str
     database: str

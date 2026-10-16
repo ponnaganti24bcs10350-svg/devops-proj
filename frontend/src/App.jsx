@@ -9,7 +9,7 @@ import {
   X
 } from 'lucide-react';
 
-const API_BASE = ''; // relative path connects through Vite dev proxy & Nginx reverse proxy
+const API_BASE = '';
 
 export default function App() {
   const [incidents, setIncidents] = useState([]);
@@ -18,13 +18,9 @@ export default function App() {
   const [health, setHealth] = useState({ status: 'checking', database: 'unknown' });
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-
-  // Search & Filter State
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [severityFilter, setSeverityFilter] = useState('');
-
-  // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -38,7 +34,6 @@ export default function App() {
   const fetchData = async () => {
     try {
       setRefreshing(true);
-      // 1. Health Probe
       const healthRes = await fetch(`${API_BASE}/health`).catch(() => null);
       if (healthRes && healthRes.ok) {
         const hData = await healthRes.json();
@@ -46,22 +41,16 @@ export default function App() {
       } else {
         setHealth({ status: 'degraded', database: 'unreachable' });
       }
-
-      // 2. Incident List
       const incRes = await fetch(`${API_BASE}/api/v1/incidents`);
       if (incRes.ok) {
         const data = await incRes.json();
         setIncidents(data);
       }
-
-      // 3. Monitored Services
       const srvRes = await fetch(`${API_BASE}/api/v1/services`);
       if (srvRes.ok) {
         const sData = await srvRes.json();
         setServices(sData);
       }
-
-      // 4. Incident Stats
       const statRes = await fetch(`${API_BASE}/api/v1/stats`);
       if (statRes.ok) {
         const stData = await statRes.json();
@@ -126,7 +115,6 @@ export default function App() {
 
   const handleDelete = async (id) => {
     try {
-      // Optimistically remove from state immediately
       setIncidents((prev) => prev.filter((inc) => inc.id !== id));
       const res = await fetch(`${API_BASE}/api/v1/incidents/${id}`, {
         method: 'DELETE'
@@ -141,8 +129,6 @@ export default function App() {
       await fetchData();
     }
   };
-
-  // Filtered dataset
   const filteredIncidents = incidents.filter((inc) => {
     const matchesSearch =
       inc.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -156,7 +142,6 @@ export default function App() {
 
   return (
     <div>
-      {/* Refined Navigation Bar */}
       <header>
         <div className="header-container">
           <div className="logo-group">
@@ -213,7 +198,6 @@ export default function App() {
       </header>
 
       <main>
-        {/* Subtle, Natural System Status Overview (No neon green dots) */}
         <div className="system-banner">
           <div className="banner-left">
             <span className={`status-badge ${isSystemHealthy ? 'badge-operational' : 'badge-degraded'}`}>
@@ -232,8 +216,6 @@ export default function App() {
             <span className="banner-chip">Multi-AZ</span>
           </div>
         </div>
-
-        {/* Executive Metrics Overview (Unified Human Layout) */}
         <div className="kpi-grid">
           <div className="kpi-card">
             <span className="kpi-label">Total incidents</span>
@@ -270,8 +252,6 @@ export default function App() {
             <div className="kpi-subtext">Mitigated and closed</div>
           </div>
         </div>
-
-        {/* Monitored Microservices (Natural Typography, Zero Green Dot Clutter) */}
         <section>
           <div className="section-header">
             <h2 className="section-title">
@@ -295,8 +275,6 @@ export default function App() {
             ))}
           </div>
         </section>
-
-        {/* Active Incident Feed & Triage */}
         <section>
           <div className="section-header">
             <h2 className="section-title">
@@ -304,8 +282,6 @@ export default function App() {
             </h2>
             <span className="section-count">{filteredIncidents.length} displayed</span>
           </div>
-
-          {/* Action Toolbar */}
           <div className="toolbar">
             <div className="toolbar-search-wrap">
               <Search size={14} className="search-icon" />
@@ -357,8 +333,6 @@ export default function App() {
               </button>
             </div>
           </div>
-
-          {/* Incidents Row List */}
           <div className="incidents-feed">
             {filteredIncidents.length === 0 ? (
               <div className="empty-feed">
@@ -421,8 +395,6 @@ export default function App() {
                       )}
                     </div>
                   </div>
-
-                  {/* Actions Column */}
                   <div className="incident-actions">
                     {inc.status !== 'RESOLVED' ? (
                       <button
@@ -456,8 +428,6 @@ export default function App() {
           </div>
         </section>
       </main>
-
-      {/* Report Incident Modal */}
       {isModalOpen && (
         <div className="modal-backdrop" onClick={() => setIsModalOpen(false)}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>

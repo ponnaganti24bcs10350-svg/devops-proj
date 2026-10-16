@@ -8,7 +8,6 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "info")
     PORT: int = int(os.getenv("PORT", "8000"))
     
-    # Database config
     POSTGRES_USER: str = os.getenv("POSTGRES_USER", "postgres")
     POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD", "postgres_password_dev")
     POSTGRES_DB: str = os.getenv("POSTGRES_DB", "cloudpulse_db")

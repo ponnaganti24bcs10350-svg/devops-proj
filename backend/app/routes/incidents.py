@@ -24,7 +24,6 @@ DEFAULT_SERVICES = [
     {"name": "k8s-ingress-controller", "environment": "production", "status": "OPERATIONAL", "uptime_pct": 99.98, "latency_ms": 18},
 ]
 
-# 1. CREATE Incident (POST)
 @router.post(
     "/incidents",
     response_model=IncidentResponse,
@@ -48,7 +47,6 @@ def create_incident(payload: IncidentCreate, db: Session = Depends(get_db)):
     db.refresh(incident)
     return incident
 
-# 2. LIST Incidents (GET)
 @router.get(
     "/incidents",
     response_model=List[IncidentResponse],
@@ -73,7 +71,6 @@ def list_incidents(
 
     return query.order_by(Incident.created_at.desc()).offset(offset).limit(limit).all()
 
-# 3. GET Single Incident by ID (GET)
 @router.get(
     "/incidents/{incident_id}",
     response_model=IncidentResponse,
@@ -89,7 +86,6 @@ def get_incident(incident_id: int, db: Session = Depends(get_db)):
         )
     return incident
 
-# 4. UPDATE Incident (PUT)
 @router.put(
     "/incidents/{incident_id}",
     response_model=IncidentResponse,
@@ -127,7 +123,6 @@ def update_incident(incident_id: int, payload: IncidentUpdate, db: Session = Dep
     db.refresh(incident)
     return incident
 
-# 5. DELETE Incident (DELETE)
 @router.delete(
     "/incidents/{incident_id}",
     status_code=status.HTTP_200_OK,
@@ -145,7 +140,6 @@ def delete_incident(incident_id: int, db: Session = Depends(get_db)):
     db.commit()
     return {"message": f"Incident {incident_id} successfully deleted", "id": incident_id}
 
-# 6. Service Catalog
 @router.get(
     "/services",
     response_model=List[ServiceResponse],
@@ -155,7 +149,6 @@ def delete_incident(incident_id: int, db: Session = Depends(get_db)):
 def list_services(db: Session = Depends(get_db)):
     services = db.query(ServiceCatalog).all()
     if not services:
-        # Seed initial services if empty
         for item in DEFAULT_SERVICES:
             s = ServiceCatalog(**item)
             db.add(s)
@@ -163,7 +156,6 @@ def list_services(db: Session = Depends(get_db)):
         services = db.query(ServiceCatalog).all()
     return services
 
-# 7. Metrics & Incident Stats
 @router.get(
     "/stats",
     response_model=StatsResponse,
