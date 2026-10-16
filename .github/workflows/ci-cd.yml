@@ -117,25 +117,17 @@ jobs:
           load: true
           tags: cloudpulse-frontend:scan
 
+      - name: Install Trivy Security Scanner
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+
       - name: Scan Backend Image for HIGH/CRITICAL Vulnerabilities
-        uses: aquasecurity/trivy-action@v0.28.0
-        with:
-          image-ref: 'cloudpulse-backend:scan'
-          format: 'table'
-          exit-code: '0'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+        run: |
+          trivy image --severity HIGH,CRITICAL --format table cloudpulse-backend:scan || true
 
       - name: Scan Frontend Image for HIGH/CRITICAL Vulnerabilities
-        uses: aquasecurity/trivy-action@v0.28.0
-        with:
-          image-ref: 'cloudpulse-frontend:scan'
-          format: 'table'
-          exit-code: '0'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+        run: |
+          trivy image --severity HIGH,CRITICAL --format table cloudpulse-frontend:scan || true
 
   build-and-push:
     name: Build & Push Images to GHCR
