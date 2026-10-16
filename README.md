@@ -143,8 +143,4 @@ The `.github/workflows/ci-cd.yml` workflow runs automatically on every push to `
 3. **Security:** Runs Trivy vulnerability scanner to flag high/critical CVEs in container images.
 4. **Publish:** Builds and tags Docker images for deployment.
 
----
 
-## License
-
-This project is licensed under the MIT License.
