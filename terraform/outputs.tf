@@ -1,7 +1,3 @@
-# ==============================================================================
-# CloudPulse Terraform Outputs
-# ==============================================================================
-
 output "vpc_id" {
   description = "The ID of the provisioned CloudPulse VPC"
   value       = aws_vpc.main.id

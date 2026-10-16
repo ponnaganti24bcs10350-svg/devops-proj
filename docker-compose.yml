@@ -1,7 +1,4 @@
 services:
-  # ============================================================================
-  # 1. PostgreSQL Database Service
-  # ============================================================================
   postgres:
     image: postgres:16-alpine
     container_name: cloudpulse-postgres
@@ -26,9 +23,6 @@ services:
           - postgres
           - cloudpulse-postgres
 
-  # ============================================================================
-  # 2. FastAPI Backend Service
-  # ============================================================================
   backend:
     build:
       context: .
@@ -62,9 +56,6 @@ services:
           - backend
           - cloudpulse-backend
 
-  # ============================================================================
-  # 3. React + Nginx Frontend Service
-  # ============================================================================
   frontend:
     build:
       context: .

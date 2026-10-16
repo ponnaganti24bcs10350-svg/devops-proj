@@ -1,8 +1,3 @@
-# ==============================================================================
-# CloudPulse VPC & Networking Architecture (Multi-AZ with Public & Private Subnets)
-# ==============================================================================
-
-# 1. Main Virtual Private Cloud (VPC)
 resource "aws_vpc" "main" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
@@ -14,7 +9,6 @@ resource "aws_vpc" "main" {
   }
 }
 
-# 2. Internet Gateway for Public Internet Access
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
@@ -23,7 +17,6 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-# 3. Public Subnets (Minimum 2 across distinct AZs)
 resource "aws_subnet" "public" {
   count                   = length(var.public_subnet_cidrs)
   vpc_id                  = aws_vpc.main.id
@@ -38,7 +31,6 @@ resource "aws_subnet" "public" {
   }
 }
 
-# 4. Private Subnets (For secure EKS worker nodes)
 resource "aws_subnet" "private" {
   count             = length(var.private_subnet_cidrs)
   vpc_id            = aws_vpc.main.id
@@ -52,7 +44,6 @@ resource "aws_subnet" "private" {
   }
 }
 
-# 5. Elastic IP for NAT Gateway
 resource "aws_eip" "nat" {
   domain = "vpc"
 
@@ -61,7 +52,6 @@ resource "aws_eip" "nat" {
   }
 }
 
-# 6. NAT Gateway (Enables private subnets to reach outbound Internet)
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.public[0].id
@@ -73,7 +63,6 @@ resource "aws_nat_gateway" "nat" {
   depends_on = [aws_internet_gateway.igw]
 }
 
-# 7. Route Table for Public Subnets (Routes 0.0.0.0/0 to IGW)
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
 
@@ -93,7 +82,6 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 }
 
-# 8. Route Table for Private Subnets (Routes 0.0.0.0/0 to NAT Gateway)
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 

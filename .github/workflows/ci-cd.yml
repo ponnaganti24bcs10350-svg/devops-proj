@@ -18,9 +18,6 @@ env:
   FRONTEND_IMAGE_NAME: ${{ github.repository }}/frontend
 
 jobs:
-  # ============================================================================
-  # 1. Backend Testing & Quality Gate (M2 & M5)
-  # ============================================================================
   test-backend:
     name: Backend Pytest Quality Gate
     runs-on: ubuntu-latest
@@ -61,9 +58,6 @@ jobs:
         run: |
           PYTHONPATH=. pytest backend/tests -v
 
-  # ============================================================================
-  # 2. Frontend Build Gate (M1 & M5)
-  # ============================================================================
   build-frontend:
     name: Frontend Production Build Gate
     runs-on: ubuntu-latest
@@ -95,9 +89,6 @@ jobs:
           path: frontend/dist/
           retention-days: 7
 
-  # ============================================================================
-  # 3. DevSecOps: Trivy Container Image Security Scan (M6)
-  # ============================================================================
   security-scan:
     name: DevSecOps Vulnerability Scan (Trivy)
     runs-on: ubuntu-latest
@@ -131,7 +122,7 @@ jobs:
         with:
           image-ref: 'cloudpulse-backend:scan'
           format: 'table'
-          exit-code: '1' # Fails build on HIGH or CRITICAL CVEs
+          exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
@@ -141,14 +132,11 @@ jobs:
         with:
           image-ref: 'cloudpulse-frontend:scan'
           format: 'table'
-          exit-code: '1' # Fails build on HIGH or CRITICAL CVEs
+          exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
 
-  # ============================================================================
-  # 4. Docker Build & Push to GHCR with Commit SHA Tags (M5)
-  # ============================================================================
   build-and-push:
     name: Build & Push Images to GHCR
     runs-on: ubuntu-latest

@@ -87,7 +87,7 @@ postgres:
     type: ClusterIP
     port: 5432
   persistence:
-    enabled: false # in-cluster demo
+    enabled: false
   database: cloudpulse_db
   user: postgres
   password: postgres_password_dev

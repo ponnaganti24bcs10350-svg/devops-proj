@@ -1,8 +1,3 @@
-# ==============================================================================
-# CloudPulse Amazon Elastic Kubernetes Service (EKS) Cluster & Managed Node Group
-# ==============================================================================
-
-# 1. IAM Role for EKS Control Plane
 resource "aws_iam_role" "cluster" {
   name = "cloudpulse-eks-cluster-role-${var.environment}"
 
@@ -23,7 +18,6 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
   role       = aws_iam_role.cluster.name
 }
 
-# 2. Security Group for EKS Cluster
 resource "aws_security_group" "cluster" {
   name        = "cloudpulse-eks-cluster-sg-${var.environment}"
   description = "Security group for EKS control plane communication"
@@ -41,7 +35,6 @@ resource "aws_security_group" "cluster" {
   }
 }
 
-# 3. AWS EKS Cluster Resource
 resource "aws_eks_cluster" "main" {
   name     = var.cluster_name
   version  = var.cluster_version
@@ -63,7 +56,6 @@ resource "aws_eks_cluster" "main" {
   }
 }
 
-# 4. IAM Role for Managed Worker Node Group
 resource "aws_iam_role" "node_group" {
   name = "cloudpulse-eks-nodegroup-role-${var.environment}"
 
@@ -94,7 +86,6 @@ resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryReadOn
   role       = aws_iam_role.node_group.name
 }
 
-# 5. AWS EKS Managed Worker Node Group
 resource "aws_eks_node_group" "main" {
   cluster_name    = aws_eks_cluster.main.name
   node_group_name = "cloudpulse-primary-workers"
