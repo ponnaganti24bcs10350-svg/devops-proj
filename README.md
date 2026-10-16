@@ -143,4 +143,41 @@ The `.github/workflows/ci-cd.yml` workflow runs automatically on every push to `
 3. **Security:** Runs Trivy vulnerability scanner to flag high/critical CVEs in container images.
 4. **Publish:** Builds and tags Docker images for deployment.
 
+screenshots : 
+app_dashboard : 
+<img width="2840" height="1613" alt="image" src="https://github.com/user-attachments/assets/0e17cde5-7766-45fb-9913-2ac692eff1b4" />
 
+health_api :
+<img width="1900" height="314" alt="image" src="https://github.com/user-attachments/assets/a7d4bace-e500-4de5-b0ff-e8ca441147f7" />
+
+pytest_results :
+<img width="1790" height="576" alt="image" src="https://github.com/user-attachments/assets/38c0af23-041a-4bdb-aef3-0ecfe6fc1557" />
+<img width="1842" height="308" alt="image" src="https://github.com/user-attachments/assets/0d8e2552-289e-4685-ba37-0f7f19169148" />
+
+github_repo :
+<img width="1382" height="1477" alt="image" src="https://github.com/user-attachments/assets/d62290ac-c7a6-401d-994d-3f6b0957fccf" />
+
+docker_compose :
+<img width="2112" height="336" alt="image" src="https://github.com/user-attachments/assets/a0c1f666-6f90-4244-9c1d-efafa3abaac8" />
+
+github_actions :
+<img width="1880" height="1476" alt="image" src="https://github.com/user-attachments/assets/3d4033e9-b47d-4676-93d3-e227b22b991b" />
+
+pipeline_detail :
+<img width="1836" height="750" alt="image" src="https://github.com/user-attachments/assets/cb958d83-9507-4210-8757-5b492ed00f7c" />
+
+ghcr_packages :
+<img width="1596" height="1230" alt="image" src="https://github.com/user-attachments/assets/6205f921-f965-45b1-a4fc-552c3eba2e04" />
+
+trivy_scan :
+<img width="1800" height="1124" alt="image" src="https://github.com/user-attachments/assets/ccb966d9-fe8d-4ffd-967f-b09a46e97c7f" />
+
+terraform_files :
+<img width="1832" height="704" alt="image" src="https://github.com/user-attachments/assets/97e33b5f-2f96-4384-95ca-cdb88deaa6f3" />
+
+helm_templates :
+<img width="1890" height="1142" alt="image" src="https://github.com/user-attachments/assets/111c547d-dda3-4225-ba06-d5a08ef46042" />
+
+prometheus_metrics :
+<img width="1424" height="1341" alt="image" src="https://github.com/user-attachments/assets/60154609-cc37-40f3-8e00-62e8eacff009" />
+<img width="1908" height="1384" alt="image" src="https://github.com/user-attachments/assets/aa93be73-86f5-4b95-9745-06bbfb90472c" />
