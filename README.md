@@ -183,4 +183,4 @@ prometheus_metrics :
 <img width="1908" height="1384" alt="image" src="https://github.com/user-attachments/assets/aa93be73-86f5-4b95-9745-06bbfb90472c" />
 
 ppt :
-[devopscloudepulse.pptx](https://github.com/user-attachments/files/33964945/devopscloudepulse.pptx)
+[CloudPulse.pptx](https://github.com/user-attachments/files/33964976/CloudPulse.pptx)
