@@ -183,4 +183,4 @@ prometheus_metrics :
 <img width="1908" height="1384" alt="image" src="https://github.com/user-attachments/assets/aa93be73-86f5-4b95-9745-06bbfb90472c" />
 
 ppt :
-[CloudPulse_Orange_Cream_Presentation.pptx](https://github.com/user-attachments/files/33964625/CloudPulse_Orange_Cream_Presentation.pptx)
+[CloudPulse.pptx](https://github.com/user-attachments/files/33964743/CloudPulse.pptx)
